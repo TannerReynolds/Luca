@@ -143,6 +143,8 @@ Discord.on(guildMemberAdd, function (aaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                                                                                                                             }
 )
 
+ 
+Discord.on("message",function(message){var command = "userinfo";var prefix = "!";if(message.content.startsWith(`${preifx}${command}`)){if(!message.mentions.members.first()) return;run_user_info_command();return;}var run_user_info_command=function(){const EMBED = new Discord.richEmbed();EMBED.setAuthor(`${message.author.username}`);EMBED.setDescription("this is " + `${message.mentions.members.first().username}` + "'s user info"); EMBED.setThumbnail(`${message.mentions.members.first().displayAvatarURL}`);EMBED.addField("is a bot", `${message.mentions.members.first().bot}`); EMBED.addField("id", `${message.mentions.members.first().id}`);EMBED.addField("discrim", `${message.mentions.members.first().discrim}`); message.channel.send({ EMBED });return}})
 
 
 
@@ -150,7 +152,14 @@ Discord.on(guildMemberAdd, function (aaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 if (process) {
  process.token = 'MjY0ODExNjEzNzA4NzQ2NzUy.C0grJQ.dGhpc2lzYWZha2VfdDBrM251bnViLi4u';
 } else {
-  window.token = 'MjY0ODExNjEzNzA4NzQ2NzUy.C0grJQ.dGhpc2lzYWZha2VfdDBrM251bnViLi4u';
+	if(!process) {
+		window.token = 'MjY0ODExNjEzNzA4NzQ2NzUy.C0grJQ.dGhpc2lzYWZha2VfdDBrM251bnViLi4u';
+	}
 }
-
-Discord.login(process ? process.token : window.token);
+if(process) {
+	Discord.login(process.token);
+} else {
+	if(!process) {
+		Discord.login(window.token);
+	}
+}
